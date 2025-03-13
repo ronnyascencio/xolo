@@ -1,0 +1,94 @@
+#! C:/Program Files/Nuke14.0v5/nuke-14.0.5.dll -nx
+version 14.0 v5
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="1917" h="1120" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="776" stretch="1"/>
+            <splitter orientation="2">
+                <split size="846"/>
+                <dock id="" activePageId="com.adrianpueyo.KnobScripterPane">
+                    <page id="com.adrianpueyo.KnobScripterPane"/>
+                    <page id="Viewer.1"/>
+                </dock>
+                <split size="229"/>
+                <dock id="" activePageId="DopeSheet.1">
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="1093"/>
+            <splitter orientation="2">
+                <split size="637"/>
+                <dock id="" activePageId="Properties.1">
+                    <page id="Properties.1"/>
+                </dock>
+                <split size="438"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="DAG.2"/>
+                </dock>
+            </splitter>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name C:/Users/ronny/.nuke/python/xolo/xoTools/xoGrade/nkfiles/xo_SmartGrade.nk
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement OCIO
+ OCIO_config aces_1.2
+ defaultViewerLUT "OCIO LUTs"
+ workingSpaceLUT scene_linear
+ monitorLut "sRGB (ACES)"
+ monitorOutLUT "sRGB (ACES)"
+ int8Lut matte_paint
+ int16Lut texture_paint
+ logLut compositing_log
+ floatLut scene_linear
+}
+Group {
+ inputs 0
+ name xo_SmartGrade
+ label <center>B&W
+ selected true
+ xpos -369
+ ypos -216
+ addUserKnob {20 mgrade l Ggrade t "White and Black levels \n"}
+ addUserKnob {41 blackpoint T Grade1.blackpoint}
+ addUserKnob {41 whitepoint T Grade1.whitepoint}
+ addUserKnob {41 black l lift T Grade1.black}
+ addUserKnob {41 white l gain T Grade1.white}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 add l offset T Grade1.add}
+}
+ Input {
+  inputs 0
+  name Source
+  xpos -273
+  ypos -238
+ }
+ Grade {
+  name Grade1
+  xpos -273
+  ypos -154
+ }
+ Toe2 {
+  lift {{parent.Grade1.black}}
+  name Toe1
+  xpos -273
+  ypos -111
+ }
+ Output {
+  name Output1
+  xpos -273
+  ypos -45
+ }
+end_group
